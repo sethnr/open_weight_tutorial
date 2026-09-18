@@ -55,7 +55,7 @@ python run_model.py \
   --model ./models/Qwen2.5-3B-Instruct \
   --temperature 0 \
   --runs 3 \
-  --prompt "Give three different imaginative explanations for why a lamb might have followed someone home."
+  --prompt "Give one reason why a lamb might follow someone home."
 ```
 
 Now run it three times with a higher temperature:
@@ -65,7 +65,7 @@ python run_model.py \
   --model ./models/Qwen2.5-3B-Instruct \
   --temperature 1.2 \
   --runs 3 \
-  --prompt "Give three different imaginative explanations for why a lamb might have followed someone home."
+  --prompt "Give one reason why a lamb might follow someone home."
 ```
 
 Compare the results. Temperature affects how the model selects its next token;

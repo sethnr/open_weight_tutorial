@@ -63,7 +63,7 @@ inputs = tokenizer.apply_chat_template(
 
 for run in range(args.runs):
     settings = {
-        "max_new_tokens": 100,
+        "max_new_tokens": 200,
         "pad_token_id": tokenizer.eos_token_id,
     }
 
