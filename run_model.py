@@ -37,6 +37,12 @@ try:
     )
     model.eval()
 
+    device_map = getattr(model, "hf_device_map", None)
+    if device_map:
+        print(f"Model device map: {device_map}")
+    else:
+        print(f"Model device: {next(model.parameters()).device}")
+
 except torch.cuda.OutOfMemoryError:
     print("The model is too large for the available GPU memory.")
     raise SystemExit(1)
