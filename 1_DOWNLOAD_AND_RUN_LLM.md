@@ -8,6 +8,11 @@ This tutorial uses one model throughout:
 Qwen/Qwen2.5-3B-Instruct
 ```
 
+We are downloading it from [Hugging Face](https://huggingface.co/), a
+repository of open-weight models. See the [Qwen2.5-3B-Instruct model
+page](https://huggingface.co/Qwen/Qwen2.5-3B-Instruct) for its description and
+technical details.
+
 ########################
 # DOWNLOAD THE MODEL
 ########################
