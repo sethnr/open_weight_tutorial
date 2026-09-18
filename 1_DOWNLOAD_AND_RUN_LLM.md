@@ -14,8 +14,12 @@ Qwen/Qwen2.5-3B-Instruct
 
 Download the model from Hugging Face:
 
+Model files are large, so do not store them in your home directory. Before
+downloading, make sure that `./models` is a directory or symlink pointing to
+storage with enough space:
+
 ```bash
-mkdir -p models
+ls -ld ./models
 hf download Qwen/Qwen2.5-3B-Instruct \
   --local-dir ./models/Qwen2.5-3B-Instruct
 ```
