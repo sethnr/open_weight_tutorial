@@ -15,7 +15,9 @@ Qwen/Qwen2.5-3B-Instruct
 Download the model from Hugging Face:
 
 ```bash
-hf download Qwen/Qwen2.5-3B-Instruct
+mkdir -p models
+hf download Qwen/Qwen2.5-3B-Instruct \
+  --local-dir ./models/Qwen2.5-3B-Instruct
 ```
 
 ########################
@@ -26,7 +28,7 @@ Send the model a prompt:
 
 ```bash
 python run_model.py \
-  --model Qwen/Qwen2.5-3B-Instruct \
+  --model ./models/Qwen2.5-3B-Instruct \
   --prompt "Mary had a little lamb. What color was its fleece?"
 ```
 
@@ -36,7 +38,7 @@ Try changing the prompt:
 
 ```bash
 python run_model.py \
-  --model Qwen/Qwen2.5-3B-Instruct \
+  --model ./models/Qwen2.5-3B-Instruct \
   --prompt "Explain in three sentences why a lamb might be kept as a household pet."
 ```
 
@@ -48,7 +50,7 @@ Run the same prompt three times with temperature `0`:
 
 ```bash
 python run_model.py \
-  --model Qwen/Qwen2.5-3B-Instruct \
+  --model ./models/Qwen2.5-3B-Instruct \
   --temperature 0 \
   --runs 3 \
   --prompt "Give three different imaginative explanations for why a lamb might have followed someone home."
@@ -58,7 +60,7 @@ Now run it three times with a higher temperature:
 
 ```bash
 python run_model.py \
-  --model Qwen/Qwen2.5-3B-Instruct \
+  --model ./models/Qwen2.5-3B-Instruct \
   --temperature 1.2 \
   --runs 3 \
   --prompt "Give three different imaginative explanations for why a lamb might have followed someone home."
