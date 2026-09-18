@@ -1,12 +1,20 @@
 ########################
-# 0. SETUP ENVIRONMENT
+# SETUP THE ENVIRONMENT
 ########################
 
-Complete this preliminary step before running a model.
+Load Miniforge3:
 
-########################
-# CREATE THE ENVIRONMENT
-########################
+```bash
+ml Miniforge3
+```
+
+If you have never used Conda before, initialise it for Bash and apply the
+change immediately:
+
+```bash
+conda init bash
+source ~/.bashrc
+```
 
 From the tutorial directory:
 
