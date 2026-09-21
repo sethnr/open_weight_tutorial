@@ -1,11 +1,9 @@
-# The British Wool Industry during the Industrial Revolution
-
-### GCSE History Question
-
-The following text concerns the British wool industry during the Industrial
+**The following text concerns the British wool industry during the Industrial
 Revolution. Explain how and why the wool industry changed between the
 eighteenth and nineteenth centuries. In your answer, refer to technology,
-workers, factories, transport, trade, and the effects on British society.
+workers, factories, transport, trade, and the effects on British society.**
+
+# The British Wool Industry during the Industrial Revolution
 
 ## Wool before industrialisation
 
