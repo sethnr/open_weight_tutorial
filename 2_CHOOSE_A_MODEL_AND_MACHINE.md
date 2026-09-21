@@ -28,15 +28,8 @@ Start with this calculation:
 weight memory = number of parameters × bytes per parameter
 ```
 
-Then allow approximately 20–25% extra for CUDA, the framework, temporary
-tensors, and the KV cache:
-
-```text
-required GPU memory ≈ weight memory × 1.25
-```
-
-This is an estimate, not a guarantee. Long prompts, long responses, images,
-and multiple simultaneous requests require more memory.
+This gives the raw weight estimate. Extra memory for CUDA, the framework,
+temporary tensors, and the KV cache is discussed below under machine sizing.
 
 ####################################
 # EXAMPLE 1: QWEN
@@ -46,11 +39,7 @@ and multiple simultaneous requests require more memory.
 general-purpose instruct model with approximately 14.7 billion parameters.
 
 ```text
-14.7B parameters × 2 bytes for FP16
-≈ 29.4 GB for the weights
-
-29.4 GB × 1.25
-≈ 36.8 GB required
+14.7B parameters @ FP16 ==> 14.7 × 2 ≈ 29.4 GB
 ```
 
 This should fail on the 24 GB interactive GPU and should run on a 40 GB A100
@@ -65,11 +54,7 @@ purpose model from Google. It is approximately 4 billion parameters and uses
 16-bit weights in the ordinary full-precision release.
 
 ```text
-4B parameters × 2 bytes for BF16
-≈ 8 GB for the weights
-
-8 GB × 1.25
-≈ 10 GB required
+4B parameters @ BF16 ==> 4 × 2 ≈ 8 GB
 ```
 
 This should fit comfortably on the 24 GB interactive GPU, assuming a normal
@@ -84,11 +69,7 @@ medical model that accepts text and images. Its language component is about 4
 billion parameters, with 16-bit weights.
 
 ```text
-4B parameters × 2 bytes for BF16
-≈ 8 GB for the language-model weights
-
-8 GB × 1.25
-≈ 10 GB baseline estimate
+4B parameters @ BF16 ==> 4 × 2 ≈ 8 GB
 ```
 
 This is not a complete estimate because MedGemma also has a vision encoder and
@@ -106,11 +87,7 @@ tasks. It has approximately 30 billion parameters, including a perception
 encoder, and its full-precision weights are BF16.
 
 ```text
-30B parameters × 2 bytes for BF16
-≈ 60 GB for the weights
-
-60 GB × 1.25
-≈ 75 GB required
+30B parameters @ BF16 ==> 30 × 2 ≈ 60 GB
 ```
 
 An 80 GB A100 is therefore the appropriate machine for a short full-precision
