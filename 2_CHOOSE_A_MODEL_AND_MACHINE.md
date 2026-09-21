@@ -2,9 +2,8 @@
 # 2. CHOOSE A MODEL AND A MACHINE
 ####################################
 
-There are many open-weight models. They can be compared on
-[Hugging Face](https://huggingface.co/), where each model page gives
-information about its purpose, size, input types, context length, licence, and
+There are over 3 million open-weight models on [Hugging Face](https://huggingface.co/), provided by a wide range of providers such as [OpenAI](https://huggingface.co/openai), [Google](https://huggingface.co/google), [Meta](https://huggingface.co/meta-models), [DeepSeek](https://huggingface.co/deepseek-ai), [Qwen](https://huggingface.co/qwen), [Anthropic](https://huggingface.co/Anthropic) and many others. 
+The model page gives information about each model's purpose, size, input types, context length, licence, and
 recommended software.
 
 ####################################
