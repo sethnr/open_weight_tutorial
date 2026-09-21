@@ -36,9 +36,7 @@ temporary tensors, and the KV cache is discussed below under machine sizing.
 [Qwen2.5-14B-Instruct](https://huggingface.co/Qwen/Qwen2.5-14B-Instruct) is a
 general-purpose instruct model with approximately 14.7 billion parameters.
 
-```text
 14.7B parameters @ FP16 ==> 14.7 × 2 ≈ 29.4 GB
-```
 
 ## 2: GEMMA
 
@@ -46,9 +44,7 @@ general-purpose instruct model with approximately 14.7 billion parameters.
 purpose model from Google. It is approximately 4 billion parameters and uses
 16-bit weights in the ordinary full-precision release.
 
-```text
 4B parameters @ BF16 ==> 4 × 2 ≈ 8 GB
-```
 
 ## 3: MEDGEMMA
 
@@ -56,9 +52,7 @@ purpose model from Google. It is approximately 4 billion parameters and uses
 medical model that accepts text and images. Its language component is about 4
 billion parameters, with 16-bit weights.
 
-```text
 4B parameters @ BF16 ==> 4 × 2 ≈ 8 GB
-```
 
 MedGemma is multimodal: it includes additional components for processing
 images. Its complete memory requirement is therefore higher than this simple
@@ -72,9 +66,7 @@ large multimodal model designed for general, reasoning, coding, and agentic
 tasks. It has approximately 30 billion parameters, including a perception
 encoder, and its full-precision weights are BF16.
 
-```text
 30B parameters @ BF16 ==> 30 × 2 ≈ 60 GB
-```
 
 ####################################
 # CHOOSE A MACHINE
@@ -87,9 +79,7 @@ and the KV cache.
 For a short, single-user text-generation exercise, 20–25% headroom may be
 adequate:
 
-```text
 required GPU memory ≈ weight memory × 1.25
-```
 
 Use more headroom for long documents, long responses, images, or multiple
 requests. A model that technically fits may still be too slow or unstable if
@@ -97,28 +87,20 @@ the GPU is nearly full.
 
 ## Qwen2.5-14B
 
-```text
 29.4 GB × 1.25 ≈ 36.8 GB
-```
 
 The 24 GB `gpu_interactive` machine is too small. The 40 GB A100 is the
 smallest sensible choice for a short prompt.
 
 ## Qwen2.5-32B
 
-```text
-32B parameters @ FP16 ==> 32 × 2 ≈ 64 GB
-64 GB × 1.25 ≈ 80 GB
-```
+32B parameters @ FP16 ==> 32 × 2 ≈ 64 GB; 64 GB × 1.25 ≈ 80 GB
 
 An 80 GB A100 is the appropriate machine for a short demonstration.
 
 ## Muse Glimmer 30B
 
-```text
-30B parameters @ BF16 ==> 30 × 2 ≈ 60 GB
-60 GB × 1.25 ≈ 75 GB
-```
+30B parameters @ BF16 ==> 30 × 2 ≈ 60 GB; 60 GB × 1.25 ≈ 75 GB
 
 An 80 GB A100 is a reasonable choice for a short full-precision demonstration.
 Images and long contexts require additional headroom. Quantised versions may
@@ -129,9 +111,7 @@ fit on smaller GPUs, but that is a different deployment choice.
 Mistral Small 4 is a mixture-of-experts model with 119 billion total
 parameters, although only about 6.5 billion are active for each token.
 
-```text
 119B parameters @ BF16 ==> 119 × 2 ≈ 238 GB
-```
 
 The inactive experts still have to be stored, so the active-parameter count
 does not reduce the weight-memory requirement. This is too large for any
