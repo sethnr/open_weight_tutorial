@@ -93,12 +93,3 @@ Automatic CPU offloading may allow a model to load when it does not fit fully
 on the GPU, but moving data between GPU and system RAM can make generation
 extremely slow. For a clear demonstration, choose a machine where the model
 fits entirely on the GPU.
-
-Mistral Small 4 has 119B total parameters. In BF16 its raw weight estimate is
-approximately 238 GB, so it requires multiple GPUs and a serving system such
-as vLLM rather than the simple wrapper used in this tutorial.
-
-Automatic CPU offloading may allow a model to load when it does not fit fully
-on the GPU, but moving data between GPU and system RAM can make generation
-extremely slow. For a clear demonstration, choose a machine where the model
-fits entirely on the GPU.
