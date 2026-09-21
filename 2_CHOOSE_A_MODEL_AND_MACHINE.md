@@ -42,9 +42,6 @@ general-purpose instruct model with approximately 14.7 billion parameters.
 14.7B parameters @ FP16 ==> 14.7 × 2 ≈ 29.4 GB
 ```
 
-This should fail on the 24 GB interactive GPU and should run on a 40 GB A100
-with a short text prompt.
-
 ####################################
 # EXAMPLE 2: GEMMA
 ####################################
@@ -56,9 +53,6 @@ purpose model from Google. It is approximately 4 billion parameters and uses
 ```text
 4B parameters @ BF16 ==> 4 × 2 ≈ 8 GB
 ```
-
-This should fit comfortably on the 24 GB interactive GPU, assuming a normal
-text prompt and modest response length.
 
 ####################################
 # EXAMPLE 3: MEDGEMMA
@@ -72,10 +66,10 @@ billion parameters, with 16-bit weights.
 4B parameters @ BF16 ==> 4 × 2 ≈ 8 GB
 ```
 
-This is not a complete estimate because MedGemma also has a vision encoder and
-image-processing components. It should fit on a 24 GB GPU for modest inputs,
-but images and long contexts can require additional memory. We discuss this
-model but do not run it in this tutorial.
+MedGemma is multimodal: it includes additional components for processing
+images. Its complete memory requirement is therefore higher than this simple
+language-weight estimate. Multimodality is discussed here because it affects
+machine choice.
 
 ####################################
 # EXAMPLE 4: MUSE GLIMMER
@@ -90,52 +84,71 @@ encoder, and its full-precision weights are BF16.
 30B parameters @ BF16 ==> 30 × 2 ≈ 60 GB
 ```
 
-An 80 GB A100 is therefore the appropriate machine for a short full-precision
-demonstration. Quantised versions require less memory, but are a different
-deployment choice. We discuss Muse Glimmer but do not run it in this tutorial.
-
-####################################
-# WHAT TO COMPARE
-####################################
-
-When comparing candidate models on Hugging Face, look at:
-
-- parameter count and weight data type;
-- context length;
-- instruct versus base training;
-- language and task coverage;
-- text-only or multimodal input;
-- licence and permitted use;
-- Transformers support and required software versions.
-
 ####################################
 # CHOOSE A MACHINE
 ####################################
 
-Choose a GPU with more memory than the estimated requirement. The estimate
-must leave headroom for the prompt, generated response, framework overhead,
-temporary tensors, and the KV cache.
+The GPU must have more memory than the raw weight estimate. Allow headroom for
+CUDA, the framework, temporary tensors, the prompt, the generated response,
+and the KV cache.
 
 For a short, single-user text-generation exercise, 20–25% headroom may be
-adequate. Use more headroom for long documents, long responses, images, or
-multiple requests. A model that technically fits may still be too slow or
-unstable if the GPU is nearly full.
+adequate:
 
-If a model does not fit, automatic CPU offloading may allow it to load, but
-generation can become extremely slow. For a clear demonstration, it is better
-to choose a machine where the model fits entirely on the GPU.
+```text
+required GPU memory ≈ weight memory × 1.25
+```
 
-####################################
-# MULTIMODALITY
-####################################
+Use more headroom for long documents, long responses, images, or multiple
+requests. A model that technically fits may still be too slow or unstable if
+the GPU is nearly full.
 
-Text-only models receive text and produce text. Multimodal models can receive
-more than one kind of input, such as text and images.
+## Qwen2.5-14B
 
-Multimodal models need additional memory for components such as image or audio
-encoders. Their model pages may also specify different software classes and
-processors. Parameter count alone is therefore not enough to estimate their
-complete memory requirement.
+```text
+29.4 GB × 1.25 ≈ 36.8 GB
+```
 
-A PDF converted to text is still a text-only input. Supplying PDF pages as
-images is a multimodal task.
+The 24 GB `gpu_interactive` machine is too small. The 40 GB A100 is the
+smallest sensible choice for a short prompt.
+
+## Qwen2.5-32B
+
+```text
+32B parameters @ FP16 ==> 32 × 2 ≈ 64 GB
+64 GB × 1.25 ≈ 80 GB
+```
+
+An 80 GB A100 is the appropriate machine for a short demonstration.
+
+## Muse Glimmer 30B
+
+```text
+30B parameters @ BF16 ==> 30 × 2 ≈ 60 GB
+60 GB × 1.25 ≈ 75 GB
+```
+
+An 80 GB A100 is a reasonable choice for a short full-precision demonstration.
+Images and long contexts require additional headroom. Quantised versions may
+fit on smaller GPUs, but that is a different deployment choice.
+
+## Mistral Small 4 119B
+
+Mistral Small 4 is a mixture-of-experts model with 119 billion total
+parameters, although only about 6.5 billion are active for each token.
+
+```text
+119B parameters @ BF16 ==> 119 × 2 ≈ 238 GB
+```
+
+The inactive experts still have to be stored, so the active-parameter count
+does not reduce the weight-memory requirement. This is too large for any
+single GPU in the basic BMRC list. It requires multiple GPUs, model
+parallelism, and a serving system such as vLLM rather than the simple wrapper.
+
+## CPU offloading
+
+Automatic CPU offloading may allow a model to load when it does not fit fully
+on the GPU. However, moving data between GPU and system RAM can make generation
+extremely slow. For a clear demonstration, choose a machine where the model
+fits entirely on the GPU.
