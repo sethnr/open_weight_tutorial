@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import argparse
+from pathlib import Path
 
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -12,6 +13,12 @@ parser.add_argument("--prompt", required=True)
 parser.add_argument("--temperature", type=float, default=0.0)
 parser.add_argument("--runs", type=int, default=1)
 args = parser.parse_args()
+
+prompt_path = Path(args.prompt)
+if prompt_path.is_file():
+    prompt = prompt_path.read_text(encoding="utf-8")
+else:
+    prompt = args.prompt
 
 ############################
 # CHECK CUDA AND LOAD MODEL
@@ -54,7 +61,7 @@ except torch.cuda.OutOfMemoryError:
 tokenizer = AutoTokenizer.from_pretrained(args.model)
 
 inputs = tokenizer.apply_chat_template(
-    [{"role": "user", "content": args.prompt}],
+    [{"role": "user", "content": prompt}],
     add_generation_prompt=True,
     tokenize=True,
     return_dict=True,
