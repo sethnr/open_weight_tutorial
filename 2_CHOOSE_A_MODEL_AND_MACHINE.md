@@ -24,9 +24,9 @@ Start with:
 
 weight memory = number of parameters × bytes per parameter
 
-This is the raw weight estimate. The machine also needs memory for CUDA, the
-framework, temporary tensors, the prompt, the generated response, and the KV
-cache.
+You can calculate the size of each model from the model card - check for the
+number of parameters and the model's data type. Multiply the number of
+parameters by the number of bytes to get the total model size:
 
 ####################################
 # MODELS
@@ -84,6 +84,10 @@ runtime requirement.
 
 Choose a GPU with more memory than the raw weight estimate. The following
 examples use machines available on the GPRU cluster:
+
+The raw weight estimate is not the complete runtime requirement. The machine
+also needs memory for CUDA, the framework, temporary tensors, the prompt, the
+generated response, and the KV cache.
 
 | Machine | GPU memory | Models that should fit |
 |---|---:|---|
