@@ -32,15 +32,7 @@ cache.
 # MODELS
 ####################################
 
-## 1: QWEN
-
-[https://huggingface.co/Qwen/Qwen2.5-14B-Instruct](https://huggingface.co/Qwen/Qwen2.5-14B-Instruct)
-
-14.7B parameters @ FP16 ==> 14.7 × 2 ≈ 29.4 GB
-
-Medium-sized general-purpose instruct model.
-
-## 2: GEMMA
+## 1: GEMMA
 
 [https://huggingface.co/google/gemma-3-4b-it](https://huggingface.co/google/gemma-3-4b-it)
 
@@ -48,7 +40,23 @@ Medium-sized general-purpose instruct model.
 
 General-purpose model from Google.
 
-## 3: MEDGEMMA
+## 2: LLAMA
+
+[https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct](https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct)
+
+8B parameters @ FP16 ==> 8 × 2 ≈ 16 GB
+
+General-purpose instruct model from Meta.
+
+## 3: QWEN
+
+[https://huggingface.co/Qwen/Qwen2.5-14B-Instruct](https://huggingface.co/Qwen/Qwen2.5-14B-Instruct)
+
+14.7B parameters @ FP16 ==> 14.7 × 2 ≈ 29.4 GB
+
+Medium-sized general-purpose instruct model.
+
+## 4: MEDGEMMA
 
 [https://huggingface.co/google/medgemma-4b-it](https://huggingface.co/google/medgemma-4b-it)
 
@@ -59,7 +67,7 @@ Specialist medical model that accepts text and images.
 The size estimate is for the language model only. The vision encoder and image-
 processing components require additional memory.
 
-## 4: MUSE GLIMMER
+## 5: MUSE GLIMMER
 
 [https://huggingface.co/meta-models/Muse-Glimmer-30B](https://huggingface.co/meta-models/Muse-Glimmer-30B)
 
@@ -79,7 +87,7 @@ examples use machines available on the GPRU cluster:
 
 | Machine | GPU memory | Models that should fit |
 |---|---:|---|
-| `gpu_interactive` | 24 GB | SmolLM2-1.7B, Gemma 3 4B, MedGemma 4B, Qwen2.5-3B |
+| `gpu_interactive` | 24 GB | SmolLM2-1.7B, Gemma 3 4B, Llama 3.1 8B, MedGemma 4B |
 | `gpu_a100_40gb` | 40 GB | The above models, plus Qwen2.5-14B |
 | `gpu_a100_80gb` | 80 GB | The above models, plus Qwen2.5-32B and Muse Glimmer 30B |
 | `gpu_gh200_144gb` | 144 GB | Larger models, depending on precision and context |
