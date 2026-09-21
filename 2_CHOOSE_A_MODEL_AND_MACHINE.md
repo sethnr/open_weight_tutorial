@@ -24,10 +24,6 @@ Start with:
 
 weight memory = number of parameters × bytes per parameter
 
-For example:
-
-14.7B parameters @ FP16 ==> 14.7 × 2 ≈ 29.4 GB
-
 This is the raw weight estimate. The machine also needs memory for CUDA, the
 framework, temporary tensors, the prompt, the generated response, and the KV
 cache.
@@ -38,58 +34,56 @@ cache.
 
 ## 1: QWEN
 
-[Qwen2.5-14B-Instruct](https://huggingface.co/Qwen/Qwen2.5-14B-Instruct)
-is a medium-sized general-purpose instruct model.
+[https://huggingface.co/Qwen/Qwen2.5-14B-Instruct](https://huggingface.co/Qwen/Qwen2.5-14B-Instruct)
 
 14.7B parameters @ FP16 ==> 14.7 × 2 ≈ 29.4 GB
 
+Medium-sized general-purpose instruct model.
+
 ## 2: GEMMA
 
-[Gemma 3 4B IT](https://huggingface.co/google/gemma-3-4b-it) is a general-
-purpose model family from Google.
+[https://huggingface.co/google/gemma-3-4b-it](https://huggingface.co/google/gemma-3-4b-it)
 
 4B parameters @ BF16 ==> 4 × 2 ≈ 8 GB
+
+General-purpose model from Google.
 
 ## 3: MEDGEMMA
 
-[MedGemma 4B IT](https://huggingface.co/google/medgemma-4b-it) is a specialist
-medical model that accepts text and images.
+[https://huggingface.co/google/medgemma-4b-it](https://huggingface.co/google/medgemma-4b-it)
 
 4B parameters @ BF16 ==> 4 × 2 ≈ 8 GB
 
-This is only the language-model estimate. The vision encoder and image-
-processing components require additional memory. We discuss MedGemma but do not
-run it in this tutorial.
+Specialist medical model that accepts text and images.
+
+The size estimate is for the language model only. The vision encoder and image-
+processing components require additional memory.
 
 ## 4: MUSE GLIMMER
 
-[Muse Glimmer 30B](https://huggingface.co/meta-models/Muse-Glimmer-30B) is a
-large multimodal model for general, reasoning, coding, and agentic tasks.
+[https://huggingface.co/meta-models/Muse-Glimmer-30B](https://huggingface.co/meta-models/Muse-Glimmer-30B)
 
 30B parameters @ BF16 ==> 30 × 2 ≈ 60 GB
 
-This includes a perception encoder in the total model. We discuss Muse Glimmer
-but do not run it in this tutorial.
+Large multimodal model for general, reasoning, coding, and agentic tasks.
+
+The model includes a perception encoder, so the size estimate is not a complete
+runtime requirement.
 
 ####################################
 # CHOOSE A MACHINE
 ####################################
 
-Choose a GPU with more memory than the model's raw weight estimate. The
-following examples use machines available on the GPRU cluster.
+Choose a GPU with more memory than the raw weight estimate. The following
+examples use machines available on the GPRU cluster:
 
-| Machine | GPU memory | Models that should fit | Typical use |
-|---|---:|---|---|
-| `gpu_interactive` | 24 GB | SmolLM2-1.7B, Gemma 3 4B, MedGemma 4B, Qwen2.5-3B | Small models and short text prompts |
-| `gpu_a100_40gb` | 40 GB | All of the above, plus Qwen2.5-14B | Medium models with limited context |
-| `gpu_a100_80gb` | 80 GB | All of the above, plus Qwen2.5-32B and Muse Glimmer 30B | Large models and longer prompts |
-| `gpu_gh200_144gb` | 144 GB | Models up to roughly 70B, depending on precision and context | Very large models; not enough for Mistral Small 4 in BF16 |
+| Machine | GPU memory | Models that should fit |
+|---|---:|---|
+| `gpu_interactive` | 24 GB | SmolLM2-1.7B, Gemma 3 4B, MedGemma 4B, Qwen2.5-3B |
+| `gpu_a100_40gb` | 40 GB | The above models, plus Qwen2.5-14B |
+| `gpu_a100_80gb` | 80 GB | The above models, plus Qwen2.5-32B and Muse Glimmer 30B |
+| `gpu_gh200_144gb` | 144 GB | Larger models, depending on precision and context |
 
-These are approximate choices for one model, one user, and a short prompt. A
-model that fits by weight size may still need more memory for long documents,
-long responses, images, or multiple requests.
-
-Automatic CPU offloading may allow a model to load when it does not fit fully
-on the GPU, but moving data between GPU and system RAM can make generation
-extremely slow. For a clear demonstration, choose a machine where the model
-fits entirely on the GPU.
+These are approximate choices for one model, one user, and a short prompt.
+Long documents, long responses, images, and multiple requests require more
+headroom.
