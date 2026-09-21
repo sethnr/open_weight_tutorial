@@ -11,7 +11,9 @@ recommended software.
 # MODEL DATA TYPES AND MEMORY
 ####################################
 
-The number of bytes used for each parameter depends on the model's data type:
+You can calculate the size of each model from the model card - check for the
+number of parameters and the model's data type. Multiply the number of
+parameters by the number of bytes to get the total model size:
 
 | Data type | Bits per parameter | Bytes per parameter |
 |---|---:|---:|
@@ -20,13 +22,9 @@ The number of bytes used for each parameter depends on the model's data type:
 | INT8 | 8 | 1 |
 | 4-bit | 4 | 0.5 |
 
-Start with:
+The calculation is:
 
 weight memory = number of parameters × bytes per parameter
-
-You can calculate the size of each model from the model card - check for the
-number of parameters and the model's data type. Multiply the number of
-parameters by the number of bytes to get the total model size:
 
 ####################################
 # MODELS
