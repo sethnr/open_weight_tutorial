@@ -75,27 +75,28 @@ but do not run it in this tutorial.
 # CHOOSE A MACHINE
 ####################################
 
-Choose a GPU with more memory than the raw weight estimate. As a rule of thumb,
-allow 20–25% headroom for a short, single-user text-generation exercise:
+Choose a GPU with more memory than the model's raw weight estimate. The
+following examples use machines available on the GPRU cluster.
 
-required GPU memory ≈ weight memory × 1.25
+| Machine | GPU memory | Models that should fit | Typical use |
+|---|---:|---|---|
+| `gpu_interactive` | 24 GB | SmolLM2-1.7B, Gemma 3 4B, MedGemma 4B, Qwen2.5-3B | Small models and short text prompts |
+| `gpu_a100_40gb` | 40 GB | All of the above, plus Qwen2.5-14B | Medium models with limited context |
+| `gpu_a100_80gb` | 80 GB | All of the above, plus Qwen2.5-32B and Muse Glimmer 30B | Large models and longer prompts |
+| `gpu_gh200_144gb` | 144 GB | Models up to roughly 70B, depending on precision and context | Very large models; not enough for Mistral Small 4 in BF16 |
 
-Use more headroom for long documents, long responses, images, or multiple
-requests. A model that technically fits may still be too slow or unstable if
-the GPU is nearly full.
+These are approximate choices for one model, one user, and a short prompt. A
+model that fits by weight size may still need more memory for long documents,
+long responses, images, or multiple requests.
 
-Examples using the BMRC machines:
+Automatic CPU offloading may allow a model to load when it does not fit fully
+on the GPU, but moving data between GPU and system RAM can make generation
+extremely slow. For a clear demonstration, choose a machine where the model
+fits entirely on the GPU.
 
-- **Gemma 3 4B (8 GB)** → `gpu_interactive` (24 GB); roughly 16 GB headroom
-  for runtime allocations and context.
-- **MedGemma 4B (8 GB baseline)** → `gpu_interactive` (24 GB) for modest
-  inputs; additional headroom is needed for images.
-- **Qwen2.5-14B (29.4 GB)** → `gpu_a100_40gb`; roughly 10 GB remains before
-  other runtime needs, so use short prompts and outputs.
-- **Muse Glimmer 30B (60 GB)** → `gpu_a100_80gb`; roughly 20 GB remains,
-  although its multimodal components and long contexts need more care.
-- **Mistral Small 4 119B (238 GB in BF16)** → no single GPU in the basic BMRC
-  list; it requires multiple GPUs and a serving system such as vLLM.
+Mistral Small 4 has 119B total parameters. In BF16 its raw weight estimate is
+approximately 238 GB, so it requires multiple GPUs and a serving system such
+as vLLM rather than the simple wrapper used in this tutorial.
 
 Automatic CPU offloading may allow a model to load when it does not fit fully
 on the GPU, but moving data between GPU and system RAM can make generation
