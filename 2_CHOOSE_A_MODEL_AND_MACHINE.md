@@ -31,9 +31,7 @@ weight memory = number of parameters × bytes per parameter
 This gives the raw weight estimate. Extra memory for CUDA, the framework,
 temporary tensors, and the KV cache is discussed below under machine sizing.
 
-####################################
-# EXAMPLE 1: QWEN
-####################################
+## 1: QWEN
 
 [Qwen2.5-14B-Instruct](https://huggingface.co/Qwen/Qwen2.5-14B-Instruct) is a
 general-purpose instruct model with approximately 14.7 billion parameters.
@@ -42,9 +40,7 @@ general-purpose instruct model with approximately 14.7 billion parameters.
 14.7B parameters @ FP16 ==> 14.7 × 2 ≈ 29.4 GB
 ```
 
-####################################
-# EXAMPLE 2: GEMMA
-####################################
+## 2: GEMMA
 
 [Gemma 3 4B IT](https://huggingface.co/google/gemma-3-4b-it) is a general-
 purpose model from Google. It is approximately 4 billion parameters and uses
@@ -54,9 +50,7 @@ purpose model from Google. It is approximately 4 billion parameters and uses
 4B parameters @ BF16 ==> 4 × 2 ≈ 8 GB
 ```
 
-####################################
-# EXAMPLE 3: MEDGEMMA
-####################################
+## 3: MEDGEMMA
 
 [MedGemma 4B IT](https://huggingface.co/google/medgemma-4b-it) is a specialist
 medical model that accepts text and images. Its language component is about 4
@@ -71,9 +65,7 @@ images. Its complete memory requirement is therefore higher than this simple
 language-weight estimate. Multimodality is discussed here because it affects
 machine choice.
 
-####################################
-# EXAMPLE 4: MUSE GLIMMER
-####################################
+## 4: MUSE GLIMMER
 
 [Muse Glimmer 30B](https://huggingface.co/meta-models/Muse-Glimmer-30B) is a
 large multimodal model designed for general, reasoning, coding, and agentic
